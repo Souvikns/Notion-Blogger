@@ -1,0 +1,26 @@
+{
+  "name": "notion-blogger",
+  "version": "1.0.0",
+  "description": "Post blogs to different platforms right from notion itself",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Souvikns/Notion-Blogger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Souvikns/Notion-Blogger/issues"
+  },
+  "homepage": "https://github.com/Souvikns/Notion-Blogger#readme",
+  "dependencies": {
+    "@notionhq/client": "^0.4.9",
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "notion-to-md": "^1.0.3"
+  }
+}
