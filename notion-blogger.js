@@ -27,7 +27,7 @@ const publishToDev = async (token, { title, content, main_image, description, se
     return response.status;
 }
 
-const publishToHashnode = async (token, {title, content}) => {
+const publishToHashnode = async (token, {title, contentMarkdown, slug, coverImageURL, tags, }) => {
     // make a request to hashnode API and publish the article
 
 }
