@@ -17,12 +17,18 @@ const publishToDev = async (token, { title, content, main_image, description, se
             "tags": tags
         }
     }
-    const response = await axios.post('https://dev.to/api/articles', Article, {
-        headers: {
-            'Content-Type': 'application/json',
-            'api-key': token
-        }
-    })
+    try {
+        const response = await axios.post('https://dev.to/api/articles', Article, {
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': token
+            }
+        })
+        return true;
+    } catch (error) {
+        return false;
+    }
+
 
     return response.status;
 }
@@ -38,8 +44,9 @@ const getPageContent = (page) => {
     const title = page.properties.Name.title[0].plain_text;
     const description = page.properties.Description.rich_text[0].plain_text;
     const tags = page.properties.Tags.multi_select.map(s => s.name);
+    const series = page.properties.Series.rich_text[0].plain_text;
     return {
-        id, cover_image, title, description, tags
+        id, cover_image, title, description, tags, series
     }
 }
 
@@ -82,6 +89,16 @@ async function main(auth_token, database_id, options = { dev_api_key, hashnode_a
     for (let page of pages) {
         const mdBlocks = await n2m.pageToMarkdown(page.id);
         const content = n2m.toMarkdownString(mdBlocks);
+
+        const isPublishedToDev = await publishToDev(options.dev_api_key, {
+            title: page.title,
+            content: content,
+            description: page.description,
+            main_image: page.cover_image,
+            published: true,
+            series: page.series,
+            tags: page.tags
+        });
 
         // After we have successfully published the blog in both the website. 
 
