@@ -111,9 +111,9 @@ async function main(auth_token, database_id, options = { dev_api_key, hashnode_a
                     }
                 }
             })
-            console.log(`${page.id} successfully updated in notion`);
+            console.log(`${res.id} successfully updated in notion`);
         } catch (error) {
-            console.log(`${page.id} was not updated in notion`);
+            console.log(`Sorry was not able to update the properties`);
         }
     }
 
