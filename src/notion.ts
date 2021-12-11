@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client';
+import {NotionAdapterInput} from './type';
 
 export class NotionAdapter {
     private readonly notion: Client;
@@ -19,7 +20,7 @@ export class NotionAdapter {
         })
     }
 
-    static instantiate(api_key?: string, database_id?: string) {
+    static instantiate({api_key, database_id}: NotionAdapterInput) {
         return new NotionAdapter(new Client({ auth: api_key }), database_id);
     }
 }
