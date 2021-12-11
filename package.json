@@ -4,7 +4,7 @@
   "description": "Post blogs to different platforms right from notion itself",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc",
     "package": "ncc build ./build -o dist"
   },
@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.12",
     "@vercel/ncc": "^0.33.0",
     "jest": "^27.4.4",
     "ts-jest": "^27.1.1",
