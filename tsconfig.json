@@ -23,7 +23,8 @@
     },
     "include": [
         "src",
-        "tooling"
+        "tooling",
+        "desc.d.ts"
     ],
     "exclude": [
         "node_modules"
