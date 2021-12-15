@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import {NotionAdapterInput, NotionPage} from './type';
-import * as Notion2md from 'notion-to-md';
+import Notion2md from 'notion-to-md';
 
 export class NotionAdapter {
     private readonly notion: Client;
