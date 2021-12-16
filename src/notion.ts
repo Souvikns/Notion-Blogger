@@ -1,5 +1,5 @@
 import { Client } from '@notionhq/client';
-import {NotionAdapterInput, NotionPage} from './type';
+import { NotionAdapterInput, NotionPage } from './type';
 import Notion2md from 'notion-to-md';
 
 export class NotionAdapter {
@@ -9,11 +9,11 @@ export class NotionAdapter {
     constructor(notion: Client, database_id?: string) {
         this.notion = notion;
         this.database_id = database_id || '';
-        this.n2m = new Notion2md({notionClient: this.notion});
+        this.n2m = new Notion2md({ notionClient: this.notion });
     }
 
     async fetchPagesReadyToPublish(): Promise<Array<NotionPage>> {
-        const {results} =  await this.notion.databases.query({
+        const { results } = await this.notion.databases.query({
             database_id: this.database_id,
             filter: {
                 and: [
@@ -37,7 +37,7 @@ export class NotionAdapter {
         return this.n2m.toMarkdownString(mdBlocks);
     }
 
-    static instantiate({api_key, database_id}: NotionAdapterInput) {
+    static instantiate({ api_key, database_id }: NotionAdapterInput) {
         return new NotionAdapter(new Client({ auth: api_key }), database_id);
     }
 }
