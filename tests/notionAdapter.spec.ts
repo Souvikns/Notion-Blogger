@@ -17,4 +17,17 @@ describe('Notion Adapter should', () => {
     it('be truthy', () => {
         expect(notionAdapter).toBeTruthy();
     })
+
+    it('Should fetch pages that are ready to be published', async () => {
+        const pages = await notionAdapter.fetchPagesReadyToPublish();
+        const {title, series} = pages[0];
+        expect(title).toMatch("Testing Blog");
+        expect(series).toMatch('Testing series');
+    })
+
+    it('should load page content ', async () => {
+        const pages = await notionAdapter.fetchPagesReadyToPublish();
+        const pageContent = await notionAdapter.getPageContent(pages[0].id);
+        expect(typeof pageContent === 'string').toBeTruthy();
+    })
 })
