@@ -11,3 +11,25 @@ export interface NotionAdapterInput {
     api_key?: string,
     database_id?: string
 }
+
+export interface DevArticle {
+    title: string,
+    body_markdown: string,
+    main_image?: string,
+    description?: string,
+    series?: string,
+    tags?: Array<string>
+}
+
+export interface HashnodeArticle {
+    title: string,
+    contentMarkdown: string,
+    coverImageURL?: string,
+    tags?: string
+    slug?: string
+}
+
+export interface ArticlePublishResponse {
+    status: number,
+    message: string
+}
