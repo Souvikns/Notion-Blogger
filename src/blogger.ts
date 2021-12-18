@@ -1,5 +1,5 @@
 import { HashnodeArticle, DevArticle, ArticlePublishResponse } from './type';
-import { DevtoError } from './errors';
+import { DevtoError, HashnodeError } from './errors';
 import Axios from 'axios';
 
 
@@ -27,10 +27,31 @@ export class Blogger {
                 throw new DevtoError();
             }
         },
-        hashnode: async (article: HashnodeArticle) => {
-            if (!this.hashnode_token) return;
 
-            //TODO: call hashnode api to publish. 
+        hashnode: async (article: HashnodeArticle): Promise<ArticlePublishResponse> => {
+            if (!this.hashnode_token) throw new Error("Hashnode token in not present");
+            const hashnode_api = 'https://api.hashnode.com/';
+            try {
+                const { status } = await Axios.post(hashnode_api, {
+                    query: "mutation createStory($input: CreateStoryInput!){ createStory(input: $input){ code success message } }",
+                    variables: {
+                        input: {
+                            title: article.title,
+                            contentMarkdown: article.contentMarkdown,
+                            coverImageURL: article.coverImageURL
+                        }
+                    }
+                }, {
+                    "headers": {
+                        "Content-Type": "application/json",
+                        Authorization: this.hashnode_token
+                    }
+                });
+                return { status, message: `${article.title} was succesfully published` };
+            } catch (error) {
+                throw new HashnodeError();
+            }
+
         }
     }
 }

@@ -18,7 +18,7 @@ async function run(){
     console.log(`Found ${pages.length} pages ready to be published`);
     for(const page of pages) {
         const content: string = await notion.getPageContent(page.id);
-        const {message} = await blogger.postTo.dev({
+        const {message: devMessage} = await blogger.postTo.dev({
             body_markdown: content,
             title: page.title,
             description: page.description,
@@ -26,8 +26,13 @@ async function run(){
             series: page.series,
             tags: page.tags
         });
-        console.log(message);
-
+        console.log(devMessage);
+        const {message: hashnodeMessage} = await blogger.postTo.hashnode({
+            contentMarkdown: content,
+            title: page.title,
+            coverImageURL: page.cover_image
+        });
+        console.log(hashnodeMessage);
     }
 }
 
