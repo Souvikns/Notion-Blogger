@@ -28,3 +28,8 @@ export interface HashnodeArticle {
     tags?: string
     slug?: string
 }
+
+export interface ArticlePublishResponse {
+    status: number,
+    message: string
+}
