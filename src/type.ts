@@ -19,6 +19,7 @@ export interface DevArticle {
     description?: string,
     series?: string,
     tags?: Array<string>
+    publish?: boolean
 }
 
 export interface HashnodeArticle {
@@ -26,7 +27,7 @@ export interface HashnodeArticle {
     contentMarkdown: string,
     coverImageURL?: string,
     tags?: string
-    slug?: string
+    slug?: string,
 }
 
 export interface ArticlePublishResponse {

@@ -12,7 +12,7 @@ async function run(){
     if (!NOTION_API_KEY) throw new Error("Notion Api key not found");
     if (!NOTION_DATABASE_ID) throw new Error("Notion Database ID not found");
     const notion = NotionAdapter.instantiate({api_key: NOTION_API_KEY, database_id: NOTION_DATABASE_ID});
-    const blogger = new Blogger({dev: '', hashnode: ''});
+    const blogger = new Blogger({dev: process.env.DEV_API_KEY, hashnode: ''});
     console.log('Fetching pages ready to be published');
     const pages = await notion.fetchPagesReadyToPublish();
     console.log(`Found ${pages.length} pages ready to be published`);
@@ -27,12 +27,12 @@ async function run(){
             tags: page.tags
         });
         console.log(devMessage);
-        const {message: hashnodeMessage} = await blogger.postTo.hashnode({
-            contentMarkdown: content,
-            title: page.title,
-            coverImageURL: page.cover_image
-        });
-        console.log(hashnodeMessage);
+        // const {message: hashnodeMessage} = await blogger.postTo.hashnode({
+        //     contentMarkdown: content,
+        //     title: page.title,
+        //     coverImageURL: page.cover_image
+        // });
+        // console.log(hashnodeMessage);
     }
 }
 

@@ -16,7 +16,7 @@ export class Blogger {
         dev: async (article: DevArticle): Promise<ArticlePublishResponse> => {
             if (!this.dev_token) throw new Error('Missing dev.to token');
             try {
-                const { status } = await Axios.post('https://dev.to/api/articles', article, {
+                const { status } = await Axios.post('https://dev.to/api/articles', {"article": article}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'api-key': this.dev_token
@@ -24,7 +24,7 @@ export class Blogger {
                 });
                 return { status, message: `${article.title} was successfully published` };
             } catch (error) {
-                throw new DevtoError();
+                throw error
             }
         },
 
