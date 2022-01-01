@@ -22,8 +22,7 @@
         ]
     },
     "include": [
-        "src",
-        "tooling",
+        "lib",
         "desc.d.ts"
     ],
     "exclude": [
