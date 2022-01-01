@@ -12,6 +12,6 @@ export class NotionBlogger {
     async post(): Promise<void> {
         const blogs = await this.notion.fetchBlogs();
         // publish the blogs and then update the status. 
-        this.blogger.post(blogs, this.notion.updateBlogStatus);
+        this.blogger.post(blogs);
     }
 }
