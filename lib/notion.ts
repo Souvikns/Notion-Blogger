@@ -26,6 +26,19 @@ export class NotionAdapter {
         return Blogs;
     }
 
+    async updateBlogStatus(page_id: string) {
+        this.notion.pages.update({
+            page_id: page_id,
+            properties: {
+                status: {
+                    select: {
+                        name: "published"
+                    }
+                }
+            }
+        })
+    }
+
     private async fethReadyBlogs() {
         const { results } = await this.notion.databases.query({
             database_id: this.database_id,
