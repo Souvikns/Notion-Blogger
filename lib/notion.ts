@@ -1,10 +1,6 @@
 import { Client } from '@notionhq/client';
 import Notion2md from 'notion-to-md';
-
-export interface NotionConfig {
-    api_key: string
-    database_id: string
-}
+import { NotionConfig, NotionBlog } from './types';
 
 export class NotionAdapter {
     private readonly notion: Client;
@@ -16,7 +12,7 @@ export class NotionAdapter {
         this.n2m = new Notion2md({ notionClient: this.notion });
     }
 
-    async fetchBlogs() {
+    async fetchBlogs(): Promise<Array<NotionBlog>> {
         const Blogs = []
         const pages = await this.fethReadyBlogs();
         for (const page of pages) {
@@ -26,7 +22,7 @@ export class NotionAdapter {
         return Blogs;
     }
 
-    async updateBlogStatus(page_id: string) {
+    async updateBlogStatus(page_id: string): Promise<void> {
         this.notion.pages.update({
             page_id: page_id,
             properties: {
@@ -59,12 +55,12 @@ export class NotionAdapter {
         }))
     }
 
-    private async getPageContent(page_id: string) {
+    private async getPageContent(page_id: string): Promise<string> {
         const mdBlocks = await this.n2m.pageToMarkdown(page_id);
         return this.n2m.toMarkdownString(mdBlocks);
     }
 
-    static instantiate({ api_key, database_id }: NotionConfig) {
+    static instantiate({ api_key, database_id }: NotionConfig): NotionAdapter {
         return new NotionAdapter(new Client({ auth: api_key }), database_id);
     }
 }

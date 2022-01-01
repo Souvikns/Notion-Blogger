@@ -1,4 +1,5 @@
-import { NotionAdapter, NotionConfig } from "./notion";
+import { NotionAdapter } from "./notion";
+import { NotionConfig } from './types';
 
 export class NotionBlogger {
     private readonly notion: NotionAdapter
