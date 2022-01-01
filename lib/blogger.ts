@@ -12,11 +12,12 @@ export class Blogger {
         this.blogServices = blogServices;
     }
 
-    async post(blogs: Array<NotionBlog>) {
+    async post(blogs: Array<NotionBlog>, cb: (page_id: string) => Promise<void>) {
         for (const blog of blogs) {
             for (const blogService of this.blogServices) {
                 blogService.post(blog);
             }
+            cb(blog.id);
         }
     }
 }
