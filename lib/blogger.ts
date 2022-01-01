@@ -21,3 +21,20 @@ export class Blogger {
         }
     }
 }
+
+export const blogServices: Array<BlogService> = [
+    {
+        name: 'dev.to',
+        api_key: process.env.DEV_API_KEY || '',
+        post: (blog: NotionBlog) => {
+
+        }
+    },
+    {
+        name: 'hashnode',
+        api_key: process.env.HASHNODE_API_KEY || '',
+        post: (blog: NotionBlog) => {
+
+        }
+    }
+]
