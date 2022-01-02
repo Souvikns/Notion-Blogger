@@ -12,9 +12,9 @@ export class NotionAdapter {
         this.n2m = new Notion2md({ notionClient: this.notion });
     }
 
-    async fetchBlogs(): Promise<Array<NotionBlog>> {
+    async fetchBlogs(targetLabel?: string): Promise<Array<NotionBlog>> {
         const Blogs = []
-        const pages = await this.fethReadyBlogs();
+        const pages = await this.fethReadyBlogs(targetLabel);
         for (const page of pages) {
             const content = await this.getPageContent(page.id);
             Blogs.push({ ...page, content: content });
@@ -35,12 +35,15 @@ export class NotionAdapter {
         })
     }
 
-    private async fethReadyBlogs() {
+    private async fethReadyBlogs(targetLabel?: string) {
+        if (!targetLabel) {
+            targetLabel = 'ready-to-publish'
+        }
         const { results } = await this.notion.databases.query({
             database_id: this.database_id,
             filter: {
                 and: [
-                    { property: 'status', select: { equals: 'ready-to-publish' } }
+                    { property: 'status', select: { equals: targetLabel } }
                 ]
             }
         });

@@ -1,4 +1,4 @@
-import { NotionBlog } from "./types";
+import { NotionBlog, Services } from "./types";
 import Axios from "axios";
 
 export interface BlogService {
@@ -8,87 +8,14 @@ export interface BlogService {
 }
 
 export class Blogger {
-    private readonly blogServices: Array<BlogService>;
-    constructor(blogServices: Array<BlogService>) {
+    private readonly blogServices: Services;
+    constructor(blogServices: Services) {
         this.blogServices = blogServices;
     }
 
-    async post(blogs: Array<NotionBlog>) {
-        for (const blog of blogs) {
-            console.log(blog.content);
-            for (const blogService of this.blogServices) {
-                blogService.post(blog, blogService.api_key);
-            }
-        }
-    }
-}
-
-export interface BlogServiceGen {
-    dev?: string
-    hashnode?: string
-}
-
-export function generateBlogService(service: BlogServiceGen): Array<BlogService> {
-    const blogServices: Array<BlogService> = [];
-    if (service.dev) {
-        blogServices.push(devService(service.dev));
-    }
-
-    if (service.hashnode) {
-        blogServices.push(hashnodeService(service.hashnode));
-    }
-
-    return blogServices;
-}
-
-
-
-function devService(api_key: string): BlogService {
-    return {
-        api_key: api_key,
-        name: 'dev.to',
-        post: async (blog: NotionBlog, api_key: string) => {
-            const { status } = await Axios.post('https://dev.to/api/articles', { "article": {
-                title: blog.title,
-                published: false,
-                body_markdown: blog.content,
-                tags: blog.tags
-            } }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'api-key': api_key
-                }
-            });
-
-            console.log(status)
-
-        }
-    }
-}
-
-function hashnodeService(api_key: string): BlogService {
-    return {
-        api_key,
-        name: 'Hashnode',
-        post: async (blog: NotionBlog, api_key: string) => {
-            const {} = await Axios({
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: api_key
-                },
-                data: JSON.stringify({
-                    query: 'mutation createStory($input: CreateStoryInput!){ createStory(input: $input){ code success message } }',
-                    variables: {
-                        input: {
-                            title: blog.title,
-                            contentMarkdown: blog.content,
-                            tags: [],
-                            coverImageUrl: blog.cover_image
-                        }
-                    }
-                })
-            })
+    async post(blog: NotionBlog, config: any) {
+        for (const service of Object.keys(config)) {
+            this.blogServices[service](blog, config[service]);
         }
     }
 }
