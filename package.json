@@ -2,11 +2,16 @@
   "name": "notion-blogger",
   "version": "1.0.0",
   "description": "Post blogs to different platforms right from notion itself",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "/lib",
+    "./README.md",
+    "./LICENSE"
+  ],
   "scripts": {
-    "test": "jest",
-    "build": "tsc",
-    "package": "ncc build ./build/runner.js -o dist"
+    "test": "echo no tests yet",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -24,6 +29,7 @@
     "@actions/github": "^5.0.0",
     "@notionhq/client": "^0.4.9",
     "axios": "^0.24.0",
+    "commander": "^8.3.0",
     "dotenv": "^10.0.0",
     "notion-to-md": "^1.0.3"
   },
