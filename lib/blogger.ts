@@ -71,7 +71,24 @@ function hashnodeService(api_key: string): BlogService {
         api_key,
         name: 'Hashnode',
         post: async (blog: NotionBlog, api_key: string) => {
-
+            const {} = await Axios({
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: api_key
+                },
+                data: JSON.stringify({
+                    query: 'mutation createStory($input: CreateStoryInput!){ createStory(input: $input){ code success message } }',
+                    variables: {
+                        input: {
+                            title: blog.title,
+                            contentMarkdown: blog.content,
+                            tags: [],
+                            coverImageUrl: blog.cover_image
+                        }
+                    }
+                })
+            })
         }
     }
 }
