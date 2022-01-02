@@ -1,36 +1,33 @@
 <div align="center">
 
-<h3>Notion Blogger</h3>
-
-<br>
-
-<p>
-Blog to multiple platform right from Notion. 
-</p>
+<h1>Notion Blogger</h1>
 
 </div>
 
+Notion Blogger is a small script that helps you blog right from Notion itself. So you never leave notion and all your blogs are published to different services. 
 
-## Usage 
-It is preferred that you use this service as a cron job. 
+## Installation 
+```
+npm install @notionhq/notion-blogger
+```
 
+## Using `Notion-Blogger` as a library
+`Notion-Blogger` can be easily used within your javascript projects as a Node.js module. It is also easy to use. 
 
-```yaml 
-name: Notion Blogger 
-on:
-    schedule:
-        - cron: '*/20 * * * *'
+```ts
+import NotionBlogger from '@integrateme/notion-blogger'
 
-jobs:
-    notion-blogger:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - name: Notion Blogger
-              uses: Integrateme/Notion-Blogger@latest
-              env:
-                NOTION_API_KEY: ${{secrets.NOTION_API_KEY}}
-                NOTION_DATABASE_ID: ${{secrets.NOTION_DATBASE_ID}}
+const notionBlogger = new NotionBlogger({
+    notion: {
+        api_key: 'notion-api-key',
+        database_id: 'notion-database-id'
+    }
+})
 
+await notionBlogger.publish({
+    dev: 'dev-api-key',
+    hashnode: 'hashnode-api-key'
+});
 
 ```
+
