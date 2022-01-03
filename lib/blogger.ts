@@ -1,5 +1,4 @@
 import { NotionBlog, Services } from "./types";
-import Axios from "axios";
 
 export interface BlogService {
     name: string
