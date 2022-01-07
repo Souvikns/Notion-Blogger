@@ -8,7 +8,7 @@ Notion Blogger is a small script that helps you blog right from Notion itself. S
 
 ## Installation 
 ```
-npm install @notionhq/notion-blogger
+npm install notion-blogger
 ```
 
 ## Usage
