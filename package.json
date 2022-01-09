@@ -9,9 +9,36 @@
     "./README.md",
     "./LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  },
   "scripts": {
     "test": "echo no tests yet",
-    "build": "tsc"
+    "build": "tsc",
+    "release": "semantic-release",
+    "prepublishOnly": "npm run build",
+    "bump:version": "npm --no-git-tag-version --allow-same-version version $VERSION"
   },
   "repository": {
     "type": "git",
@@ -34,9 +61,15 @@
     "notion-to-md": "^1.0.3"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/npm": "^8.0.3",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/jest": "^27.0.3",
     "@vercel/ncc": "^0.33.0",
+    "conventional-changelog-conventionalcommits": "^4.6.3",
     "jest": "^27.4.4",
+    "semantic-release": "^18.0.1",
     "ts-jest": "^27.1.1",
     "typescript": "^4.5.3"
   }
