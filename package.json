@@ -2,10 +2,10 @@
   "name": "notion-blogger",
   "version": "1.0.0",
   "description": "Post blogs to different platforms right from notion itself",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "files": [
-    "/lib",
+    "/build",
     "./README.md",
     "./LICENSE"
   ],
