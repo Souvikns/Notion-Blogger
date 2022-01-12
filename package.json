@@ -1,6 +1,6 @@
 {
   "name": "notion-blogger",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Post blogs to different platforms right from notion itself",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
