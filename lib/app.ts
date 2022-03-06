@@ -3,7 +3,12 @@ import { Blogger, } from './blogger';
 import { Config, PublishConfig } from './types';
 import services from './service';
 
-
+/**
+ * ```typescript
+ * const notionBlogger = new NotionBlogger(config);
+ * 
+ * ```
+ */
 export class NotionBlogger {
     private readonly notion: NotionAdapter
     private readonly blogger: Blogger;
