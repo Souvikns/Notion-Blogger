@@ -65,7 +65,7 @@ const notionBlogger = new NotionBlogger({
 |blog.cover_image| `string`|
 |blog.title| `string`|
 |blog.description| `string`|
-|blog.tags| `Arrary<string>
+|blog.tags| `Arrary<string>`|
 
 #### `config`
 `config` variable is the variable that you pass in `publish` function. So you can pass in only the `api-key` and that what the config varaible will be, or you if you pass in your custom properties you can access them as well. 
