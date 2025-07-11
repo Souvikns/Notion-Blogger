@@ -1,0 +1,11 @@
+name: Self-Hosted Manual Log
+
+on:
+  workflow_dispatch:
+
+jobs:
+  log-message:
+    runs-on: self-hosted
+    steps:
+      - name: Print a log message
+        run: echo "✅ Hello from the self-hosted runner (manual trigger)!" && neofetch
